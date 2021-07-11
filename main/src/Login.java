@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
+
     public void LoginForm(){
         JLabel user,pass,incorrect,in;
         JTextField tf_user;
@@ -34,8 +35,7 @@ public class Login extends JFrame {
                 String realPassword="admin";
                 if(password.equals(realPassword)){
                     dispose();
-                    //TODO
-                    //call new class here
+                    new Main();
                 }else{
                     add(incorrect);
                     incorrect.setText("Incorrect password");
@@ -57,4 +57,5 @@ public class Login extends JFrame {
     public static void main(String[] args) {
         new Login();
     }
+
 }
