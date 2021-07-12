@@ -3,13 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//TODO:
-//  Show vehicle card
-//  Show Button for Booking, after pressing it,
-//  dispose the the current JFrame and Open the
-//  new one with JTabbedPane with insurance and
-//  car details
-
 public class Cars extends JFrame {
     public void addButton(){
     JButton b=new JButton("book this car");

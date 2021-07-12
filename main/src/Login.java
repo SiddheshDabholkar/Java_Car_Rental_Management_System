@@ -4,30 +4,39 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
+    JLabel user,pass,incorrect,message;
+    public void displayMessage(){
+        message =new JLabel("Welcome Admin");
+        message.setForeground(Color.WHITE);
+        message.setFont(new Font("Serif",Font.PLAIN,20));
+        message.setBounds(260,90,200,14);
+        getContentPane().add(message);
+    }
 
     public void LoginForm(){
-        JLabel user,pass,incorrect,in;
         JTextField tf_user;
         JPasswordField tf_pass;
         JButton login;
         //
         user=new JLabel("username :");
-        user.setBounds(50,50,100,20);
+        user.setBounds(240,150,100,20);
+        user.setForeground(Color.WHITE);
         tf_user=new JTextField("Admin");
         tf_user.setEditable(false);
-        tf_user.setBounds(150,50,100,20);
+        tf_user.setBounds(330,150,100,20);
         //
         pass=new JLabel("password :");
-        pass.setBounds(50,100,100,20);
+        pass.setBounds(240,200,100,20);
+        pass.setForeground(Color.WHITE);
         tf_pass=new JPasswordField();
-        tf_pass.setBounds(150,100,100,20);
+        tf_pass.setBounds(330,200,100,20);
         //
         incorrect=new JLabel("incorrect password");
-        incorrect.setBounds(50,140,200,20);
+        incorrect.setBounds(275,220,200,20);
         incorrect.setForeground(Color.red);
         //
         login=new JButton("login");
-        login.setBounds(150,200,100,20);
+        login.setBounds(240,270,190,30);
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,6 +51,8 @@ public class Login extends JFrame {
                 }
             }
         });
+        //
+        displayMessage();
         add(user);
         add(tf_user);
         add(pass);
@@ -51,8 +62,12 @@ public class Login extends JFrame {
     Login(){
         LoginForm();
         setLayout(null);
+        getContentPane().setBackground(Color.BLACK);
+        setResizable(false);
+        setTitle("Admin Login");
         setVisible(true);
         setMinimumSize(new Dimension(700,500));
+        setLocationRelativeTo(null);
     }
     public static void main(String[] args) {
         new Login();

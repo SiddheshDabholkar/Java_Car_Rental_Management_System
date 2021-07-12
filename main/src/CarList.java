@@ -7,7 +7,6 @@ public class CarList extends JFrame {
         String data[][]={{"101","GA 11","Nissan","20","2","true","Bajaj","11/11/11","11/11/11","123456"}};
         String column[]={"id","car no","company","mileage","capacity","availability","insurance company","effective date","insurance exp.date","car identification no."};
         JTable jt=new JTable(data,column);
-        jt.setBounds(30,40,200,300);
         JScrollPane sp=new JScrollPane(jt);
         add(sp);
     }
