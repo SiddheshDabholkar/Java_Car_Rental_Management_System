@@ -43,6 +43,11 @@ public class Main extends JFrame{
         });
 
         panel.add(pnlCarsInfo,"pnlCarsInfo");
+        String data[][]={{"101","GA 11","Nissan","20","2","true","Bajaj","11/11/11","11/11/11","123456"}};
+        String column[]={"id","car no","company","mileage","capacity","availability","insurance company","effective date","insurance exp.date","car identification no."};
+        JTable jt=new JTable(data,column);
+        JScrollPane sp=new JScrollPane(jt);
+        pnlCarsInfo.add(sp);
         pnlCarsInfo.add(new JLabel("cars info"));
         mniCarsInfo.addActionListener(new ActionListener() {
             @Override
