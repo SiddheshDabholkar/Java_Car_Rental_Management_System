@@ -4,14 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
+
     JLabel head;
     JButton cars, bookings,car_list;
+
     public void addHead() {
         head = new JLabel("Main menu");
         head.setHorizontalAlignment(JLabel.CENTER);
         head.setBounds(10, 10, 100, 20);
         add(head);
     }
+
     public void addButtons() {
         //
         cars = new JButton("Cars");
@@ -48,10 +51,12 @@ public class Main extends JFrame {
         add(bookings);
         add(car_list);
     }
+
     public void MainScreen() {
         addHead();
         addButtons();
     }
+
     Main() {
         MainScreen();
         setLayout(null);
@@ -59,6 +64,7 @@ public class Main extends JFrame {
         setTitle("Main Menu");
         setMinimumSize(new Dimension(700, 500));
     }
+
     public static void main(String[] args) {
         new Main();
     }
