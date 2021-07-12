@@ -12,22 +12,30 @@ public class Main extends JFrame {
     JMenu homeMenuPanel = new JMenu("More");
 
     public void addCarsInfo() {
-        JPanel pnlCarsInfo = new JPanel();
+        JPanel pnlCarsInfo;
+        pnlCarsInfo = new JPanel();
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
         homeMenuPanel.add(mniCarsInfo);
         panel.add(pnlCarsInfo, "pnlCarsInfo");
-        String data[][] = {{"101", "GA 11", "Nissan", "20", "2", "true", "Bajaj", "11/11/11", "11/11/11", "123456"}};
-        String column[] = {"id", "car no", "company", "mileage", "capacity", "availability", "insurance company", "effective date", "insurance exp.date", "car identification no."};
-        JTable jt = new JTable(data, column);
-        JScrollPane sp = new JScrollPane(jt);
-        pnlCarsInfo.add(sp);
-        pnlCarsInfo.setBackground(Color.black);
         mniCarsInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(panel, "pnlCarsInfo");
             }
         });
+        //
+        String data[][] = {{"101", "GA 11", "Nissan", "20", "2", "true", "Bajaj", "11/11/11", "11/11/11", "123456"}};
+        String column[] = {"id", "car no", "company", "mileage", "capacity", "availability", "insurance company", "effective date", "insurance exp.date", "car identification no."};
+        JTable jt = new JTable(data, column);
+        jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        JScrollPane sp = new JScrollPane(jt);
+        pnlCarsInfo.add(sp);
+        //
+        JLabel l=new JLabel("lmao");
+        pnlCarsInfo.add(l);
+        //
+        pnlCarsInfo.setBackground(Color.black);
+        pnlCarsInfo.setLayout(new GridLayout(2,1));
     }
 
     public void addCars() {
