@@ -12,7 +12,6 @@ public class Login extends JFrame {
         message.setBounds(260,90,200,14);
         getContentPane().add(message);
     }
-
     public void LoginForm(){
         JTextField tf_user;
         JPasswordField tf_pass;
@@ -51,7 +50,6 @@ public class Login extends JFrame {
                 }
             }
         });
-        //
         displayMessage();
         add(user);
         add(tf_user);
@@ -72,5 +70,4 @@ public class Login extends JFrame {
     public static void main(String[] args) {
         new Login();
     }
-
 }
