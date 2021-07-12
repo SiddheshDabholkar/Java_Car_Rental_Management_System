@@ -3,70 +3,101 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main extends JFrame {
+public class Main extends JFrame{
+    CardLayout cardLayout = new CardLayout();
+    JMenuBar menuBar = new JMenuBar();
+    JPanel panel = new JPanel();
+    //
+    public void addHome(){
+        JMenu homeMenuPanel = new JMenu("More");
+        JPanel pnlCars,pnlBookCars,pnlCarsInfo;
 
-    JLabel head;
-    JButton cars, bookings,car_list;
+        JMenuItem mniCars=new JMenuItem("Cars");
+        JMenuItem mniBookCars=new JMenuItem("Book Cars");
+        JMenuItem mniCarsInfo=new JMenuItem("Cars Info");
 
-    public void addHead() {
-        head = new JLabel("Main menu");
-        head.setHorizontalAlignment(JLabel.CENTER);
-        head.setBounds(10, 10, 100, 20);
-        add(head);
+        pnlCars=new JPanel();
+        pnlBookCars=new JPanel();
+        pnlCarsInfo=new JPanel();
+
+        homeMenuPanel.add(mniCars);
+        homeMenuPanel.add(mniBookCars);
+        homeMenuPanel.add(mniCarsInfo);
+
+        panel.add(pnlCars,"pnlCars");
+        pnlCars.add(new JLabel("cars"));
+        mniCars.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panel, "pnlCars");
+            }
+        });
+
+        panel.add(pnlBookCars,"pnlBookCars");
+        pnlBookCars.add(new JLabel("Book cars"));
+        mniBookCars.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panel, "pnlBookCars");
+            }
+        });
+
+        panel.add(pnlCarsInfo,"pnlCarsInfo");
+        pnlCarsInfo.add(new JLabel("cars info"));
+        mniCarsInfo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panel, "pnlCarsInfo");
+            }
+        });
+
+        menuBar.add(homeMenuPanel);
     }
-
-    public void addButtons() {
-        //
-        cars = new JButton("Cars");
-        cars.setBounds(10, 100, 100, 20);
-        cars.addActionListener(new ActionListener() {
+    public void addMoreMenu() {
+        JMenu moreMenuPanel = new JMenu("More");
+        JMenuItem mniHelp = new JMenuItem("Help");
+        JMenuItem mniExit = new JMenuItem("Exit");
+        JPanel pnlHelp=new JPanel();
+        moreMenuPanel.add(mniHelp);
+        moreMenuPanel.add(mniExit);
+        panel.add(pnlHelp,"pnlHelp");
+        pnlHelp.add(new JLabel("GUI is self explanatory"));
+        menuBar.add(moreMenuPanel);
+        mniHelp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panel, "pnlHelp");
+            }
+        });
+        mniExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new Cars();
             }
         });
-        //
-        bookings = new JButton("Bookings");
-        bookings.setBounds(10, 150, 100, 20);
-        bookings.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Booking();
-            }
-        });
-        //
-        car_list=new JButton("car list");
-        car_list.setBounds(10, 200, 100, 20);
-        car_list.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new CarList();
-            }
-        });
-        //
-        add(cars);
-        add(bookings);
-        add(car_list);
     }
-
-    public void MainScreen() {
-        addHead();
-        addButtons();
-    }
-
-    Main() {
-        MainScreen();
-        setLayout(null);
+    //
+    Main(){
+        panel.setLayout(cardLayout);
+        cardLayout.show(panel, "pnlHelp");
+        setJMenuBar(menuBar);
+        add(panel);
+        //
+        addHome();
+        addMoreMenu();
+        //
+        setMinimumSize(new Dimension(700,500));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
-        setTitle("Main Menu");
-        setMinimumSize(new Dimension(700, 500));
+        setLocationRelativeTo(null);
     }
 
     public static void main(String[] args) {
-        new Main();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Main();
+            }
+        });
     }
-
 }
