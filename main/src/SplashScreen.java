@@ -24,7 +24,7 @@ public class SplashScreen extends JFrame{
         setVisible(true);
     }
 
-  public void WelcomeText(){
+    public void WelcomeText(){
         JLabel l1,l2;
         l1=new JLabel("Car Rental Management");
         l1.setBounds(170,230,500,30);

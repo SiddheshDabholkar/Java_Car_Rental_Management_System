@@ -50,6 +50,7 @@ public class Login extends JFrame {
                 }
             }
         });
+        //
         displayMessage();
         add(user);
         add(tf_user);
