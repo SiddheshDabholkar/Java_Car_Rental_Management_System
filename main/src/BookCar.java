@@ -7,6 +7,7 @@ public class BookCar extends JFrame {
         setVisible(true);
         setTitle("Book a car");
         setMinimumSize(new Dimension(700,500));
+        setLocationRelativeTo(null);
     }
     public static void main(String[] args) {
         new BookCar();

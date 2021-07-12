@@ -2,14 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SplashScreen extends JFrame{
-    ImageIcon icon=new ImageIcon("../../images/lmabo.jpg");
-    JLabel homePageImage = new JLabel(icon);
 
     public SplashScreen() {
         try{
             createGUI();
-            addImage();
-            Thread.sleep(2000);
+            WelcomeText();
+            Thread.sleep(4000);
             dispose();
         }catch(InterruptedException e){
             System.out.println("got interrupted!");
@@ -25,10 +23,15 @@ public class SplashScreen extends JFrame{
         setVisible(true);
     }
 
-    public void addImage(){
-        homePageImage.setSize(800,500);
-        add(homePageImage,BorderLayout.CENTER);
-    }
+  public void WelcomeText(){
+        JLabel l1,l2;
+        l1=new JLabel("Car Rental Management");
+        l1.setBounds(230,250,500,30);
+        l1.setFont(new Font("Serif",Font.PLAIN,30));
+        l1.setHorizontalAlignment(JLabel.CENTER);
+        l1.setForeground(Color.WHITE);
+        add(l1);
+  }
 
     public static void main(String[] args){
         new SplashScreen();
