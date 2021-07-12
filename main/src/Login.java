@@ -67,6 +67,7 @@ public class Login extends JFrame {
         setTitle("Admin Login");
         setVisible(true);
         setMinimumSize(new Dimension(700,500));
+        setLocationRelativeTo(null);
     }
     public static void main(String[] args) {
         new Login();
