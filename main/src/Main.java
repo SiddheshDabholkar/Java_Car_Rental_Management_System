@@ -38,75 +38,75 @@ public class Main extends JFrame {
         JLabel id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
         JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
 
-        one=new JPanel();
-        id=new JLabel();
-        tf_id=new JTextField();
+        one=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        id=new JLabel("id");
+        tf_id=new JTextField(15);
         one.add(id);
         one.add(tf_id);
 
-        two=new JPanel();
-        car_no=new JLabel();
-        tf_car_no=new JTextField();
+        two=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        car_no=new JLabel("car no");
+        tf_car_no=new JTextField(15);
         two.add(car_no);
         two.add(tf_car_no);
 
-        three=new JPanel();
-        company=new JLabel();
-        tf_company=new JTextField();
+        three=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        company=new JLabel("car company");
+        tf_company=new JTextField(15);
         three.add(company);
         three.add(tf_company);
 
-        four=new JPanel();
-        mileage=new JLabel();
-        tf_mileage=new JTextField();
+        four=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        mileage=new JLabel("car mileage");
+        tf_mileage=new JTextField(15);
         four.add(mileage);
         four.add(tf_mileage);
 
-        five=new JPanel();
-        capacity=new JLabel();
-        tf_capacity=new JTextField();
+        five=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        capacity=new JLabel("car capacity");
+        tf_capacity=new JTextField(15);
         five.add(capacity);
         five.add(tf_capacity);
 
-        six=new JPanel();
-        availability=new JLabel();
-        tf_availability=new JTextField();
+        six=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        availability=new JLabel("isBooked");
+        tf_availability=new JTextField(15);
         six.add(availability);
         six.add(tf_availability);
 
-        seven=new JPanel();
-        insurance_company=new JLabel();
-        tf_insurance_company=new JTextField();
+        seven=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        insurance_company=new JLabel("insurance company");
+        tf_insurance_company=new JTextField(15);
         seven.add(insurance_company);
         seven.add(tf_insurance_company);
 
-        eight=new JPanel();
-        effective_date=new JLabel();
-        tf_effective_date=new JTextField();
+        eight=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        effective_date=new JLabel("effective date");
+        tf_effective_date=new JTextField(15);
         eight.add(effective_date);
         eight.add(tf_effective_date);
 
-        nine=new JPanel();
-        insurance_exp_date=new JLabel();
-        tf_insurance_exp_date=new JTextField();
+        nine=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        insurance_exp_date=new JLabel("insurane exp. date");
+        tf_insurance_exp_date=new JTextField(15);
         nine.add(insurance_exp_date);
         nine.add(tf_insurance_exp_date);
 
-        ten=new JPanel();
-        car_identification_no=new JLabel();
-        tf_car_identification_no=new JTextField();
+        ten=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        car_identification_no=new JLabel("car identification no");
+        tf_car_identification_no=new JTextField(15);
         ten.add(car_identification_no);
         ten.add(tf_car_identification_no);
 
-        eleven=new JPanel();
-        fuelCapacity=new JLabel();
-        tf_fuelCapacity=new JTextField();
+        eleven=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        fuelCapacity=new JLabel("fuel capacity");
+        tf_fuelCapacity=new JTextField(15);
         eleven.add(fuelCapacity);
         eleven.add(tf_fuelCapacity);
 
-        twelve=new JPanel();
-        fuelType=new JLabel();
-        tf_fuelType=new JTextField();
+        twelve=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        fuelType=new JLabel("fuel type");
+        tf_fuelType=new JTextField(15);
         twelve.add(fuelType);
         twelve.add(tf_fuelType);
 
