@@ -8,23 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//TODO:
-// 2
-// Also in table we have to add a button
-// or selector where admin can see if the
-// car is hired or not by using condition in
-// query
-// 3
-// Make one table in database with name user
-// In the buy car section show all the details
-// of the car by fetching data from DB and make them
-// non editable.Add one additional button with name
-// "hire" which will update the database with user id
-// (in carlist table ) and also will sent data in
-// user table
-
-
-
 public class Main extends JFrame {
     Connection con = null;
     PreparedStatement pst;
@@ -37,11 +20,23 @@ public class Main extends JFrame {
     JPanel pnlCarsInfo,pnlRest,pnlBookCars;
     JTextField tf_car_model,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
     //--carInfo--//
+    public void makeTextFieldsEmpty(){
+        tf_car_no.setText("");
+        tf_company.setText("");
+        tf_mileage.setText("");
+        tf_capacity.setText("");
+        tf_fuelType.setText("");
+        tf_fuelCapacity.setText("");
+        tf_availability.setText("");
+        tf_insurance_company.setText("");
+        tf_effective_date.setText("");
+        tf_insurance_exp_date.setText("");
+        tf_car_identification_no.setText("");
+        tf_car_model.setText("");
+    }
     public void addCarsInfoRestButtons(){
-
         JButton update,save,delete,search;
         JPanel thirteen=new JPanel();
-
         thirteen=new JPanel();
         //
         update=new JButton("update");
@@ -80,17 +75,7 @@ public class Main extends JFrame {
 
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Record Updateee!!!!!");
-                    tf_car_no.setText("");
-                    tf_company.setText("");
-                    tf_mileage.setText("");
-                    tf_capacity.setText("");
-                    tf_fuelType.setText("");
-                    tf_fuelCapacity.setText("");
-                    tf_availability.setText("");
-                    tf_insurance_company.setText("");
-                    tf_effective_date.setText("");
-                    tf_insurance_exp_date.setText("");
-                    tf_car_identification_no.setText("");
+                    makeTextFieldsEmpty();
                 }
                 catch (SQLException e1)
                 {
@@ -160,17 +145,7 @@ public class Main extends JFrame {
                     }
                     else
                     {
-                        tf_car_no.setText("");
-                        tf_company.setText("");
-                        tf_mileage.setText("");
-                        tf_capacity.setText("");
-                        tf_fuelType.setText("");
-                        tf_fuelCapacity.setText("");
-                        tf_availability.setText("");
-                        tf_insurance_company.setText("");
-                        tf_effective_date.setText("");
-                        tf_insurance_exp_date.setText("");
-                        tf_car_identification_no.setText("");
+                        makeTextFieldsEmpty();
                         JOptionPane.showMessageDialog(null,"Invalid Employee No");
                     }
                 }
@@ -214,28 +189,22 @@ public class Main extends JFrame {
                     pst.setString(12,car_model);
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null,"New Car Added");
-                    tf_car_no.setText("");
-                    tf_company.setText("");
-                    tf_mileage.setText("");
-                    tf_capacity.setText("");
-                    tf_fuelType.setText("");
-                    tf_fuelCapacity.setText("");
-                    tf_availability.setText("");
-                    tf_insurance_company.setText("");
-                    tf_effective_date.setText("");
-                    tf_insurance_exp_date.setText("");
-                    tf_car_identification_no.setText("");
+                    makeTextFieldsEmpty();
                 }catch(Exception e2){
                     System.out.println(e2);
                 }
             }
         });
         //
+        String isHired[]={"available","Unavailable"};
+        JComboBox cb=new JComboBox(isHired);
+        //
         thirteen.setLayout(new FlowLayout(FlowLayout.CENTER));
         thirteen.add(update);
         thirteen.add(save);
         thirteen.add(delete);
         thirteen.add(search);
+        thirteen.add(cb);
         pnlRest.add(thirteen);
     }
     public void addCarsInfoRestForm(){
@@ -374,9 +343,7 @@ public class Main extends JFrame {
     }
     //--bookCars--//
     public void addBookCarsButton(){}
-    public void addBookCarsForm(){
-
-    }
+    public void addBookCarsForm(){}
     public void addBookCars() {
         JMenuItem mniBookCars = new JMenuItem("Book Cars");
         pnlBookCars = new JPanel();
