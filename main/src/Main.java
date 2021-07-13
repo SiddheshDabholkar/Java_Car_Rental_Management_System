@@ -22,7 +22,7 @@ public class Main extends JFrame {
         save=new JButton("save");
         delete=new JButton("delete");
         search=new JButton("search");
-        thirteen.setLayout(new GridLayout(1,4));
+        thirteen.setLayout(new FlowLayout(FlowLayout.CENTER));
         thirteen.add(update);
         thirteen.add(save);
         thirteen.add(delete);
