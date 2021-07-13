@@ -8,6 +8,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//TODO:
+// 2
+// Also in table we have to add a button
+// or selector where admin can see if the
+// car is hired or not by using condition in
+// query
+// 3
+// Make one table in database with name user
+// In the buy car section show all the details
+// of the car by fetching data from DB and make them
+// non editable.Add one additional button with name
+// "hire" which will update the database with user id
+// (in carlist table ) and also will sent data in
+// user table
+
+
+
 public class Main extends JFrame {
     Connection con = null;
     PreparedStatement pst;
@@ -15,11 +32,11 @@ public class Main extends JFrame {
     JMenuBar menuBar = new JMenuBar();
     JPanel panel = new JPanel();
     //_______________________Menus_________________________//
-    //------HomeMenu------//
+    //--------------HomeMenu---------------//
     JMenu homeMenuPanel = new JMenu("Home");
     JPanel pnlCarsInfo,pnlRest,pnlBookCars;
-    JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
-    //
+    JTextField tf_car_model,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
+    //--carInfo--//
     public void addCarsInfoRestButtons(){
 
         JButton update,save,delete,search;
@@ -31,8 +48,7 @@ public class Main extends JFrame {
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
-                id=tf_id.getText();
+                String car_model,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
                 car_no=tf_car_no.getText();
                 company=tf_company.getText();
                 mileage=tf_mileage.getText();
@@ -44,10 +60,12 @@ public class Main extends JFrame {
                 effective_date=tf_effective_date.getText();
                 insurance_exp_date=tf_insurance_exp_date.getText();
                 car_identification_no=tf_car_identification_no.getText();
+                car_model=tf_car_model.getText();
+
 
                 try {
-                    pst = con.prepareStatement("update carlist set carNo = ?,carCompany = ?,carMileage = ?,carCapacity=?,isBooked=?,iCompany=?,effectiveDate=?,iExpirayDate=?,carIndentificationNumber=?,fuelCapacity=?,fuelType=? where ID = ?");
-                    pst.setString(1,car_no);
+                    pst = con.prepareStatement("update carlist set carModel = ?,carCompany = ?,carMileage = ?,carCapacity=?,isBooked=?,iCompany=?,effectiveDate=?,iExpirayDate=?,carIndentificationNumber=?,fuelCapacity=?,fuelType=? where carNo = ?");
+                    pst.setString(1,car_model);
                     pst.setString(2,company);
                     pst.setString(3,mileage);
                     pst.setString(4,capacity);
@@ -58,7 +76,7 @@ public class Main extends JFrame {
                     pst.setString(9,car_identification_no);
                     pst.setString(10,fuelCapacity);
                     pst.setString(11,fuelType);
-                    pst.setString(12,id);
+                    pst.setString(12,car_no);
 
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Record Updateee!!!!!");
@@ -87,10 +105,10 @@ public class Main extends JFrame {
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String carId=tf_id.getText();
+                String carNo=tf_car_no.getText();
                 try {
-                    pst = con.prepareStatement("delete from carlist  where ID = ?");
-                    pst.setString(1, carId);
+                    pst = con.prepareStatement("delete from carlist  where carNo = ?");
+                    pst.setString(1, carNo);
                     pst.executeUpdate();
                     addTable();
                     JOptionPane.showMessageDialog(null, "Record Deleteeeeee!!!!!");
@@ -106,13 +124,13 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    String carId=tf_id.getText();
-                    pst = con.prepareStatement("select carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType from carlist where ID = ?");
-                    pst.setString(1, carId);
+                    String carNo=tf_car_no.getText();
+                    pst = con.prepareStatement("select carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType,carModel from carlist where carNo = ?");
+                    pst.setString(1, carNo);
                     ResultSet rs = pst.executeQuery();
                     if(rs.next()==true)
                     {
-                        String car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
+                        String car_model,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
 
                         car_no=rs.getString(1);
                         company=rs.getString(2);
@@ -125,7 +143,8 @@ public class Main extends JFrame {
                         car_identification_no=rs.getString(9);
                         fuelCapacity=rs.getString(10);
                         fuelType=rs.getString(11);
-                        tf_id.setText(carId);
+                        car_model=rs.getString(12);
+
                         tf_car_no.setText(car_no);
                         tf_company.setText(company);
                         tf_mileage.setText(mileage);
@@ -137,6 +156,7 @@ public class Main extends JFrame {
                         tf_effective_date.setText(effective_date);
                         tf_insurance_exp_date.setText(insurance_exp_date);
                         tf_car_identification_no.setText(car_identification_no);
+                        tf_car_model.setText(car_model);
                     }
                     else
                     {
@@ -164,7 +184,7 @@ public class Main extends JFrame {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
+                String car_model,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
                 car_no=tf_car_no.getText();
                 company=tf_company.getText();
                 mileage=tf_mileage.getText();
@@ -176,8 +196,10 @@ public class Main extends JFrame {
                 effective_date=tf_effective_date.getText();
                 insurance_exp_date=tf_insurance_exp_date.getText();
                 car_identification_no=tf_car_identification_no.getText();
+                car_model=tf_car_model.getText();
+
                 try{
-                    pst=con.prepareStatement("insert into carlist(carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType)values(?,?,?,?,?,?,?,?,?,?,?)");
+                    pst=con.prepareStatement("insert into carlist(carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType,carModel)values(?,?,?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1,car_no);
                     pst.setString(2,company);
                     pst.setString(3,mileage);
@@ -189,6 +211,7 @@ public class Main extends JFrame {
                     pst.setString(9,car_identification_no);
                     pst.setString(10,fuelCapacity);
                     pst.setString(11,fuelType);
+                    pst.setString(12,car_model);
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null,"New Car Added");
                     tf_car_no.setText("");
@@ -220,13 +243,13 @@ public class Main extends JFrame {
         pnlRest = new JPanel();
         JPanel formContainer=new JPanel();
         JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve;
-        JLabel id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
+        JLabel car_model,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
 
         one=new JPanel(new FlowLayout(FlowLayout.LEFT));
-        id=new JLabel("id");
-        tf_id=new JTextField(15);
-        one.add(id);
-        one.add(tf_id);
+        car_model=new JLabel("car model");
+        tf_car_model=new JTextField(15);
+        one.add(car_model);
+        one.add(tf_car_model);
 
         two=new JPanel(new FlowLayout(FlowLayout.LEFT));
         car_no=new JLabel("car no");
@@ -349,13 +372,19 @@ public class Main extends JFrame {
         pnlCarsInfo.setBackground(Color.black);
         pnlCarsInfo.setLayout(new GridLayout(2,1));
     }
+    //--bookCars--//
+    public void addBookCarsButton(){}
+    public void addBookCarsForm(){
+
+    }
     public void addBookCars() {
         JMenuItem mniBookCars = new JMenuItem("Book Cars");
         pnlBookCars = new JPanel();
         pnlBookCars.setBackground(Color.black);
         homeMenuPanel.add(mniBookCars);
         panel.add(pnlBookCars, "pnlBookCars");
-        pnlBookCars.add(new JLabel("Book cars"));
+        addBookCarsForm();
+        addBookCarsButton();
         mniBookCars.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -363,12 +392,13 @@ public class Main extends JFrame {
             }
         });
     }
+    //
     public void addHome() {
         addCarsInfo();
         addBookCars();
         menuBar.add(homeMenuPanel);
     }
-    //------MoreMenu------//
+    //--------------MoreMenu---------------//
     public void addMoreMenu() {
         JMenu moreMenuPanel = new JMenu("More");
         JMenuItem mniHelp = new JMenuItem("Help");
@@ -392,7 +422,7 @@ public class Main extends JFrame {
             }
         });
     }
-    //_____________________________________________________//
+    //
     Main() {
         con = DB.dbconnect();
         panel.setLayout(cardLayout);
