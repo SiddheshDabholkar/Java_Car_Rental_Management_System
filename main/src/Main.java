@@ -27,6 +27,63 @@ public class Main extends JFrame {
         update=new JButton("update");
         delete=new JButton("delete");
         search=new JButton("search");
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    String carId=tf_id.getText();
+                    pst = con.prepareStatement("select carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType from carlist where ID = ?");
+                    pst.setString(1, carId);
+                    ResultSet rs = pst.executeQuery();
+                    if(rs.next()==true)
+                    {
+                        String car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
+
+                        car_no=rs.getString(1);
+                        company=rs.getString(2);
+                        mileage=rs.getString(3);
+                        capacity=rs.getString(4);
+                        availability=rs.getString(5);
+                        insurance_company=rs.getString(6);
+                        effective_date=rs.getString(7);
+                        insurance_exp_date=rs.getString(8);
+                        car_identification_no=rs.getString(9);
+                        fuelCapacity=rs.getString(10);
+                        fuelType=rs.getString(11);
+                        tf_id.setText(carId);
+                        tf_car_no.setText(car_no);
+                        tf_company.setText(company);
+                        tf_mileage.setText(mileage);
+                        tf_capacity.setText(capacity);
+                        tf_fuelType.setText(fuelType);
+                        tf_fuelCapacity.setText(fuelCapacity);
+                        tf_availability.setText(availability);
+                        tf_insurance_company.setText(insurance_company);
+                        tf_effective_date.setText(effective_date);
+                        tf_insurance_exp_date.setText(insurance_exp_date);
+                        tf_car_identification_no.setText(car_identification_no);
+                    }
+                    else
+                    {
+                        tf_car_no.setText("");
+                        tf_company.setText("");
+                        tf_mileage.setText("");
+                        tf_capacity.setText("");
+                        tf_fuelType.setText("");
+                        tf_fuelCapacity.setText("");
+                        tf_availability.setText("");
+                        tf_insurance_company.setText("");
+                        tf_effective_date.setText("");
+                        tf_insurance_exp_date.setText("");
+                        tf_car_identification_no.setText("");
+                        JOptionPane.showMessageDialog(null,"Invalid Employee No");
+                    }
+                }
+                catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         save=new JButton("save");
         save.addActionListener(new ActionListener() {
             @Override
