@@ -7,7 +7,9 @@ public class DB {
 
     public static Connection dbconnect(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            //NOTE: shows deprecated message
+//            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/car_rental_management","root","");
             return conn;
         }catch(Exception e1){

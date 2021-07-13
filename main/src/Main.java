@@ -2,9 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class Main extends JFrame {
 
+    Connection con = null;
     CardLayout cardLayout = new CardLayout();
     JMenuBar menuBar = new JMenuBar();
     JPanel panel = new JPanel();
@@ -12,15 +15,63 @@ public class Main extends JFrame {
     //------HomeMenu------//
     JMenu homeMenuPanel = new JMenu("Home");
     JPanel pnlCarsInfo,pnlRest,pnlBookCars;
+    JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
+
 
     public void addCarsInfoRestButtons(){
         JButton update,save,delete,search;
         JPanel thirteen=new JPanel();
         thirteen=new JPanel();
         update=new JButton("update");
-        save=new JButton("save");
         delete=new JButton("delete");
         search=new JButton("search");
+        save=new JButton("save");
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
+                car_no=tf_car_no.getText();
+                company=tf_company.getText();
+                mileage=tf_mileage.getText();
+                capacity=tf_capacity.getText();
+                fuelType=tf_fuelType.getText();
+                fuelCapacity=tf_fuelCapacity.getText();
+                availability=tf_availability.getText();
+                insurance_company=tf_insurance_company.getText();
+                effective_date=tf_effective_date.getText();
+                insurance_exp_date=tf_insurance_exp_date.getText();
+                car_identification_no=tf_car_identification_no.getText();
+                try{
+                    PreparedStatement pst=con.prepareStatement("insert into carlist(carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType)values(?,?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1,car_no);
+                    pst.setString(2,company);
+                    pst.setString(3,mileage);
+                    pst.setString(4,capacity);
+                    pst.setString(5,availability);
+                    pst.setString(6,insurance_company);
+                    pst.setString(7,effective_date);
+                    pst.setString(8,insurance_exp_date);
+                    pst.setString(9,car_identification_no);
+                    pst.setString(10,fuelCapacity);
+                    pst.setString(11,fuelType);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null,"New Car Added");
+                    tf_car_no.setText("");
+                    tf_company.setText("");
+                    tf_mileage.setText("");
+                    tf_capacity.setText("");
+                    tf_fuelType.setText("");
+                    tf_fuelCapacity.setText("");
+                    tf_availability.setText("");
+                    tf_insurance_company.setText("");
+                    tf_effective_date.setText("");
+                    tf_insurance_exp_date.setText("");
+                    tf_car_identification_no.setText("");
+                }catch(Exception e2){
+                    System.out.println(e2);
+                }
+            }
+        });
         thirteen.setLayout(new FlowLayout(FlowLayout.CENTER));
         thirteen.add(update);
         thirteen.add(save);
@@ -28,13 +79,13 @@ public class Main extends JFrame {
         thirteen.add(search);
         pnlRest.add(thirteen);
     }
+
     public void addCarsInfoRestForm(){
 
         pnlRest = new JPanel();
         JPanel formContainer=new JPanel();
         JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve;
         JLabel id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
-        JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
 
         one=new JPanel(new FlowLayout(FlowLayout.LEFT));
         id=new JLabel("id");
@@ -125,6 +176,7 @@ public class Main extends JFrame {
 
         pnlRest.add(formContainer);
     }
+
     public void addCarsInfoRest(){
         addCarsInfoRestForm();
         pnlRest.setLayout(new BoxLayout(pnlRest,BoxLayout.Y_AXIS));
@@ -200,6 +252,7 @@ public class Main extends JFrame {
     }
     //_____________________________________________________//
     Main() {
+        con = DB.dbconnect();
         panel.setLayout(cardLayout);
         cardLayout.show(panel, "pnlCarsInfo");
         setJMenuBar(menuBar);
@@ -209,7 +262,7 @@ public class Main extends JFrame {
         addMoreMenu();
         //
         setMinimumSize(new Dimension(800, 600));
-        setResizable(false);
+//        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
