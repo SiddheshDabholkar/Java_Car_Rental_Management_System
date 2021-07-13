@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
+
     CardLayout cardLayout = new CardLayout();
     JMenuBar menuBar = new JMenuBar();
     JPanel panel = new JPanel();
@@ -13,10 +14,27 @@ public class Main extends JFrame {
     JMenu homeMenuPanel = new JMenu("Home");
     JPanel pnlCarsInfo,pnlRest,pnlCars,pnlBookCars;
 
-    public void addCarsInfoRest(){
-        pnlRest = new JPanel();
+    public void addCarsInfoRestButtons(){
         JButton update,save,delete,search;
-        JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen;
+        JPanel thirteen=new JPanel();
+        thirteen=new JPanel();
+        update=new JButton("update");
+        save=new JButton("save");
+        delete=new JButton("delete");
+        search=new JButton("search");
+        thirteen.setLayout(new GridLayout(1,4));
+        thirteen.add(update);
+        thirteen.add(save);
+        thirteen.add(delete);
+        thirteen.add(search);
+        pnlRest.add(thirteen);
+    }
+
+    public void addCarsInfoRestForm(){
+
+        pnlRest = new JPanel();
+        JPanel formContainer=new JPanel();
+        JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve;
         JLabel id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
         JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
 
@@ -80,47 +98,43 @@ public class Main extends JFrame {
         ten.add(car_identification_no);
         ten.add(tf_car_identification_no);
 
+        eleven=new JPanel();
+        fuelCapacity=new JLabel();
+        tf_fuelCapacity=new JTextField();
+        eleven.add(fuelCapacity);
+        eleven.add(tf_fuelCapacity);
+
         twelve=new JPanel();
         fuelType=new JLabel();
         tf_fuelType=new JTextField();
         twelve.add(fuelType);
         twelve.add(tf_fuelType);
 
-        thirteen=new JPanel();
-        fuelCapacity=new JLabel();
-        tf_fuelCapacity=new JTextField();
-        thirteen.add(fuelCapacity);
-        thirteen.add(tf_fuelCapacity);
+        addCarsInfoRestButtons();
+        formContainer.setLayout(new GridLayout(6,2));
+        formContainer.add(one);
+        formContainer.add(two);
+        formContainer.add(three);
+        formContainer.add(four);
+        formContainer.add(five);
+        formContainer.add(six);
+        formContainer.add(seven);
+        formContainer.add(eight);
+        formContainer.add(nine);
+        formContainer.add(ten);
+        formContainer.add(eleven);
+        formContainer.add(twelve);
 
-        eleven=new JPanel();
-        update=new JButton("update");
-        save=new JButton("save");
-        delete=new JButton("delete");
-        search=new JButton("search");
-        eleven.setLayout(new GridLayout(1,1));
-        eleven.add(update);
-        eleven.add(save);
-        eleven.add(delete);
-        eleven.add(search);
+        pnlRest.add(formContainer);
+    }
 
-        pnlRest.add(one);
-        pnlRest.add(two);
-        pnlRest.add(three);
-        pnlRest.add(four);
-        pnlRest.add(five);
-        pnlRest.add(six);
-        pnlRest.add(seven);
-        pnlRest.add(eight);
-        pnlRest.add(nine);
-        pnlRest.add(ten);
-        pnlRest.add(twelve);
-        pnlRest.add(thirteen);
-        pnlRest.add(eleven);
-
-        pnlRest.setLayout(new GridLayout(5,2));
+    public void addCarsInfoRest(){
+        addCarsInfoRestForm();
+        pnlRest.setLayout(new BoxLayout(pnlRest,BoxLayout.Y_AXIS));
         pnlRest.setBackground(Color.GRAY);
         pnlCarsInfo.add(pnlRest);
     }
+
     public void addCarsInfo() {
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
         homeMenuPanel.add(mniCarsInfo);

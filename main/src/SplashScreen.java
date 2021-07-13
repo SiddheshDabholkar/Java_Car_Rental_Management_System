@@ -23,7 +23,6 @@ public class SplashScreen extends JFrame{
         getContentPane().setBackground(Color.black);
         setVisible(true);
     }
-
     public void WelcomeText(){
         JLabel l1,l2;
         l1=new JLabel("Car Rental Management");
@@ -33,7 +32,6 @@ public class SplashScreen extends JFrame{
         l1.setForeground(Color.WHITE);
         add(l1);
   }
-
     public static void main(String[] args){
         new SplashScreen();
     }
