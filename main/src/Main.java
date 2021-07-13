@@ -1,13 +1,16 @@
+import net.proteanit.sql.DbUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Main extends JFrame {
-
     Connection con = null;
+    PreparedStatement pst;
     CardLayout cardLayout = new CardLayout();
     JMenuBar menuBar = new JMenuBar();
     JPanel panel = new JPanel();
@@ -16,8 +19,7 @@ public class Main extends JFrame {
     JMenu homeMenuPanel = new JMenu("Home");
     JPanel pnlCarsInfo,pnlRest,pnlBookCars;
     JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
-
-
+    //
     public void addCarsInfoRestButtons(){
         JButton update,save,delete,search;
         JPanel thirteen=new JPanel();
@@ -42,7 +44,7 @@ public class Main extends JFrame {
                 insurance_exp_date=tf_insurance_exp_date.getText();
                 car_identification_no=tf_car_identification_no.getText();
                 try{
-                    PreparedStatement pst=con.prepareStatement("insert into carlist(carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType)values(?,?,?,?,?,?,?,?,?,?,?)");
+                    pst=con.prepareStatement("insert into carlist(carNo,carCompany,carMileage,carCapacity,isBooked,iCompany,effectiveDate,iExpirayDate,carIndentificationNumber,fuelCapacity,fuelType)values(?,?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1,car_no);
                     pst.setString(2,company);
                     pst.setString(3,mileage);
@@ -79,7 +81,6 @@ public class Main extends JFrame {
         thirteen.add(search);
         pnlRest.add(thirteen);
     }
-
     public void addCarsInfoRestForm(){
 
         pnlRest = new JPanel();
@@ -176,12 +177,24 @@ public class Main extends JFrame {
 
         pnlRest.add(formContainer);
     }
-
     public void addCarsInfoRest(){
         addCarsInfoRestForm();
         pnlRest.setLayout(new BoxLayout(pnlRest,BoxLayout.Y_AXIS));
         pnlRest.setBackground(Color.GRAY);
         pnlCarsInfo.add(pnlRest);
+    }
+    public void addTable(){
+        try {
+            JTable table_1=new JTable();
+            pst = con.prepareStatement("select * from carlist");
+            ResultSet rs = pst.executeQuery();
+            table_1.setModel(DbUtils.resultSetToTableModel(rs));
+            table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            JScrollPane sp=new JScrollPane(table_1);
+            pnlCarsInfo.add(sp);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
     public void addCarsInfo() {
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
@@ -195,13 +208,8 @@ public class Main extends JFrame {
                 cardLayout.show(panel, "pnlCarsInfo");
             }
         });
-        String[][] data = {{"101", "GA 11", "Nissan", "20", "2", "true", "Bajaj", "11/11/11", "11/11/11", "123456","20l","electric"}};
-        String[] column = {"id", "car no", "company", "mileage", "capacity", "availability", "insurance company", "effective date", "insurance exp.date", "car identification no.","fuelCapacity","fuelType"};
-        JTable jt = new JTable(data, column);
-        jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        JScrollPane sp = new JScrollPane(jt);
-        pnlCarsInfo.add(sp);
         //
+        addTable();
         addCarsInfoRest();
         //
         pnlCarsInfo.setBackground(Color.black);
