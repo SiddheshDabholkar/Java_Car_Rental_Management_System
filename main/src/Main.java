@@ -9,10 +9,9 @@ public class Main extends JFrame {
     JMenuBar menuBar = new JMenuBar();
     JPanel panel = new JPanel();
     //_______________________Menus_________________________//
-    //*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*//
     //------HomeMenu------//
     JMenu homeMenuPanel = new JMenu("Home");
-    JPanel pnlCarsInfo,pnlRest,pnlCars,pnlBookCars;
+    JPanel pnlCarsInfo,pnlRest,pnlBookCars;
 
     public void addCarsInfoRestButtons(){
         JButton update,save,delete,search;
@@ -156,20 +155,6 @@ public class Main extends JFrame {
         pnlCarsInfo.setBackground(Color.black);
         pnlCarsInfo.setLayout(new GridLayout(2,1));
     }
-    public void addCars() {
-        pnlCars = new JPanel();
-        JMenuItem mniCars = new JMenuItem("Cars");
-        pnlCars.setBackground(Color.black);
-        homeMenuPanel.add(mniCars);
-        panel.add(pnlCars, "pnlCars");
-        pnlCars.add(new JLabel("cars"));
-        mniCars.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(panel, "pnlCars");
-            }
-        });
-    }
     public void addBookCars() {
         JMenuItem mniBookCars = new JMenuItem("Book Cars");
         pnlBookCars = new JPanel();
@@ -185,9 +170,8 @@ public class Main extends JFrame {
         });
     }
     public void addHome() {
-        addBookCars();
-        addCars();
         addCarsInfo();
+        addBookCars();
         menuBar.add(homeMenuPanel);
     }
     //------MoreMenu------//
@@ -215,10 +199,9 @@ public class Main extends JFrame {
         });
     }
     //_____________________________________________________//
-    //*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*//
     Main() {
         panel.setLayout(cardLayout);
-        cardLayout.show(panel, "pnlHelp");
+        cardLayout.show(panel, "pnlCarsInfo");
         setJMenuBar(menuBar);
         add(panel);
         //
