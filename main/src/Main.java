@@ -29,7 +29,6 @@ public class Main extends JFrame {
         thirteen.add(search);
         pnlRest.add(thirteen);
     }
-
     public void addCarsInfoRestForm(){
 
         pnlRest = new JPanel();
@@ -127,14 +126,12 @@ public class Main extends JFrame {
 
         pnlRest.add(formContainer);
     }
-
     public void addCarsInfoRest(){
         addCarsInfoRestForm();
         pnlRest.setLayout(new BoxLayout(pnlRest,BoxLayout.Y_AXIS));
         pnlRest.setBackground(Color.GRAY);
         pnlCarsInfo.add(pnlRest);
     }
-
     public void addCarsInfo() {
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
         homeMenuPanel.add(mniCarsInfo);
@@ -147,8 +144,8 @@ public class Main extends JFrame {
                 cardLayout.show(panel, "pnlCarsInfo");
             }
         });
-        String[][] data = {{"101", "GA 11", "Nissan", "20", "2", "true", "Bajaj", "11/11/11", "11/11/11", "123456"}};
-        String[] column = {"id", "car no", "company", "mileage", "capacity", "availability", "insurance company", "effective date", "insurance exp.date", "car identification no."};
+        String[][] data = {{"101", "GA 11", "Nissan", "20", "2", "true", "Bajaj", "11/11/11", "11/11/11", "123456","20l","electric"}};
+        String[] column = {"id", "car no", "company", "mileage", "capacity", "availability", "insurance company", "effective date", "insurance exp.date", "car identification no.","fuelCapacity","fuelType"};
         JTable jt = new JTable(data, column);
         jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane sp = new JScrollPane(jt);
