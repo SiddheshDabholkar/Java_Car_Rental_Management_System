@@ -21,11 +21,86 @@ public class Main extends JFrame {
     JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
     //
     public void addCarsInfoRestButtons(){
+
         JButton update,save,delete,search;
         JPanel thirteen=new JPanel();
+
         thirteen=new JPanel();
+        //
         update=new JButton("update");
+        update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
+                id=tf_id.getText();
+                car_no=tf_car_no.getText();
+                company=tf_company.getText();
+                mileage=tf_mileage.getText();
+                capacity=tf_capacity.getText();
+                fuelType=tf_fuelType.getText();
+                fuelCapacity=tf_fuelCapacity.getText();
+                availability=tf_availability.getText();
+                insurance_company=tf_insurance_company.getText();
+                effective_date=tf_effective_date.getText();
+                insurance_exp_date=tf_insurance_exp_date.getText();
+                car_identification_no=tf_car_identification_no.getText();
+
+                try {
+                    pst = con.prepareStatement("update carlist set carNo = ?,carCompany = ?,carMileage = ?,carCapacity=?,isBooked=?,iCompany=?,effectiveDate=?,iExpirayDate=?,carIndentificationNumber=?,fuelCapacity=?,fuelType=? where ID = ?");
+                    pst.setString(1,car_no);
+                    pst.setString(2,company);
+                    pst.setString(3,mileage);
+                    pst.setString(4,capacity);
+                    pst.setString(5,availability);
+                    pst.setString(6,insurance_company);
+                    pst.setString(7,effective_date);
+                    pst.setString(8,insurance_exp_date);
+                    pst.setString(9,car_identification_no);
+                    pst.setString(10,fuelCapacity);
+                    pst.setString(11,fuelType);
+                    pst.setString(12,id);
+
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Record Updateee!!!!!");
+                    tf_car_no.setText("");
+                    tf_company.setText("");
+                    tf_mileage.setText("");
+                    tf_capacity.setText("");
+                    tf_fuelType.setText("");
+                    tf_fuelCapacity.setText("");
+                    tf_availability.setText("");
+                    tf_insurance_company.setText("");
+                    tf_effective_date.setText("");
+                    tf_insurance_exp_date.setText("");
+                    tf_car_identification_no.setText("");
+                }
+                catch (SQLException e1)
+                {
+                    e1.printStackTrace();
+                }
+                addTable();
+
+            }
+        });
+        //
         delete=new JButton("delete");
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String carId=tf_id.getText();
+                try {
+                    pst = con.prepareStatement("delete from carlist  where ID = ?");
+                    pst.setString(1, carId);
+                    pst.executeUpdate();
+                    addTable();
+                    JOptionPane.showMessageDialog(null, "Record Deleteeeeee!!!!!");
+                }
+                catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        //
         search=new JButton("search");
         search.addActionListener(new ActionListener() {
             @Override
@@ -84,6 +159,7 @@ public class Main extends JFrame {
                 }
             }
         });
+        //
         save=new JButton("save");
         save.addActionListener(new ActionListener() {
             @Override
@@ -131,6 +207,7 @@ public class Main extends JFrame {
                 }
             }
         });
+        //
         thirteen.setLayout(new FlowLayout(FlowLayout.CENTER));
         thirteen.add(update);
         thirteen.add(save);
