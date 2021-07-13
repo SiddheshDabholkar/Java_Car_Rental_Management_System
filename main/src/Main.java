@@ -9,39 +9,145 @@ public class Main extends JFrame {
     JPanel panel = new JPanel();
     //_______________________Menus_________________________//
     //*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*//
-    JMenu homeMenuPanel = new JMenu("More");
+    //------HomeMenu------//
+    JMenu homeMenuPanel = new JMenu("Home");
+    JPanel pnlCarsInfo,pnlRest,pnlCars,pnlBookCars;
 
+    public void addCarsInfoRest(){
+        pnlRest = new JPanel();
+        JButton update,save,delete,search;
+        JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen;
+        JLabel id,car_no,company,mileage,capacity,fuelType,fuelCapacity,availability,insurance_company,effective_date,insurance_exp_date,car_identification_no;
+        JTextField tf_id,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
+
+        one=new JPanel();
+        id=new JLabel();
+        tf_id=new JTextField();
+        one.add(id);
+        one.add(tf_id);
+
+        two=new JPanel();
+        car_no=new JLabel();
+        tf_car_no=new JTextField();
+        two.add(car_no);
+        two.add(tf_car_no);
+
+        three=new JPanel();
+        company=new JLabel();
+        tf_company=new JTextField();
+        three.add(company);
+        three.add(tf_company);
+
+        four=new JPanel();
+        mileage=new JLabel();
+        tf_mileage=new JTextField();
+        four.add(mileage);
+        four.add(tf_mileage);
+
+        five=new JPanel();
+        capacity=new JLabel();
+        tf_capacity=new JTextField();
+        five.add(capacity);
+        five.add(tf_capacity);
+
+        six=new JPanel();
+        availability=new JLabel();
+        tf_availability=new JTextField();
+        six.add(availability);
+        six.add(tf_availability);
+
+        seven=new JPanel();
+        insurance_company=new JLabel();
+        tf_insurance_company=new JTextField();
+        seven.add(insurance_company);
+        seven.add(tf_insurance_company);
+
+        eight=new JPanel();
+        effective_date=new JLabel();
+        tf_effective_date=new JTextField();
+        eight.add(effective_date);
+        eight.add(tf_effective_date);
+
+        nine=new JPanel();
+        insurance_exp_date=new JLabel();
+        tf_insurance_exp_date=new JTextField();
+        nine.add(insurance_exp_date);
+        nine.add(tf_insurance_exp_date);
+
+        ten=new JPanel();
+        car_identification_no=new JLabel();
+        tf_car_identification_no=new JTextField();
+        ten.add(car_identification_no);
+        ten.add(tf_car_identification_no);
+
+        twelve=new JPanel();
+        fuelType=new JLabel();
+        tf_fuelType=new JTextField();
+        twelve.add(fuelType);
+        twelve.add(tf_fuelType);
+
+        thirteen=new JPanel();
+        fuelCapacity=new JLabel();
+        tf_fuelCapacity=new JTextField();
+        thirteen.add(fuelCapacity);
+        thirteen.add(tf_fuelCapacity);
+
+        eleven=new JPanel();
+        update=new JButton("update");
+        save=new JButton("save");
+        delete=new JButton("delete");
+        search=new JButton("search");
+        eleven.setLayout(new GridLayout(1,1));
+        eleven.add(update);
+        eleven.add(save);
+        eleven.add(delete);
+        eleven.add(search);
+
+        pnlRest.add(one);
+        pnlRest.add(two);
+        pnlRest.add(three);
+        pnlRest.add(four);
+        pnlRest.add(five);
+        pnlRest.add(six);
+        pnlRest.add(seven);
+        pnlRest.add(eight);
+        pnlRest.add(nine);
+        pnlRest.add(ten);
+        pnlRest.add(twelve);
+        pnlRest.add(thirteen);
+        pnlRest.add(eleven);
+
+        pnlRest.setLayout(new GridLayout(5,2));
+        pnlRest.setBackground(Color.GRAY);
+        pnlCarsInfo.add(pnlRest);
+    }
     public void addCarsInfo() {
-        JPanel pnlCarsInfo;
-        pnlCarsInfo = new JPanel();
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
         homeMenuPanel.add(mniCarsInfo);
+        pnlCarsInfo = new JPanel();
         panel.add(pnlCarsInfo, "pnlCarsInfo");
+        //
         mniCarsInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(panel, "pnlCarsInfo");
             }
         });
-        //
-        String data[][] = {{"101", "GA 11", "Nissan", "20", "2", "true", "Bajaj", "11/11/11", "11/11/11", "123456"}};
-        String column[] = {"id", "car no", "company", "mileage", "capacity", "availability", "insurance company", "effective date", "insurance exp.date", "car identification no."};
+        String[][] data = {{"101", "GA 11", "Nissan", "20", "2", "true", "Bajaj", "11/11/11", "11/11/11", "123456"}};
+        String[] column = {"id", "car no", "company", "mileage", "capacity", "availability", "insurance company", "effective date", "insurance exp.date", "car identification no."};
         JTable jt = new JTable(data, column);
         jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane sp = new JScrollPane(jt);
         pnlCarsInfo.add(sp);
         //
-        JLabel l=new JLabel("lmao");
-        pnlCarsInfo.add(l);
+        addCarsInfoRest();
         //
         pnlCarsInfo.setBackground(Color.black);
         pnlCarsInfo.setLayout(new GridLayout(2,1));
     }
-
     public void addCars() {
-        JPanel pnlCars = new JPanel();
-        JMenuItem mniCars = new JMenuItem("Cars");
         pnlCars = new JPanel();
+        JMenuItem mniCars = new JMenuItem("Cars");
         pnlCars.setBackground(Color.black);
         homeMenuPanel.add(mniCars);
         panel.add(pnlCars, "pnlCars");
@@ -53,9 +159,7 @@ public class Main extends JFrame {
             }
         });
     }
-
     public void addBookCars() {
-        JPanel pnlCars, pnlBookCars, pnlCarsInfo;
         JMenuItem mniBookCars = new JMenuItem("Book Cars");
         pnlBookCars = new JPanel();
         pnlBookCars.setBackground(Color.black);
@@ -69,14 +173,13 @@ public class Main extends JFrame {
             }
         });
     }
-
     public void addHome() {
         addBookCars();
         addCars();
         addCarsInfo();
         menuBar.add(homeMenuPanel);
     }
-
+    //------MoreMenu------//
     public void addMoreMenu() {
         JMenu moreMenuPanel = new JMenu("More");
         JMenuItem mniHelp = new JMenuItem("Help");
@@ -102,7 +205,6 @@ public class Main extends JFrame {
     }
     //_____________________________________________________//
     //*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*//
-
     Main() {
         panel.setLayout(cardLayout);
         cardLayout.show(panel, "pnlHelp");
@@ -112,7 +214,8 @@ public class Main extends JFrame {
         addHome();
         addMoreMenu();
         //
-        setMinimumSize(new Dimension(700, 500));
+        setMinimumSize(new Dimension(800, 600));
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
