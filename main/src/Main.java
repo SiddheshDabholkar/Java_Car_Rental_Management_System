@@ -8,6 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//NOTE
+// After updating ,deleting and adding car
+// The JTable doesn't reloads .
+// so we call the refresh method after
+// every deleting,adding and updating car
+// which is not an optimal solution.
+
 public class Main extends JFrame {
     Connection con = null;
     PreparedStatement pst;
@@ -18,8 +25,26 @@ public class Main extends JFrame {
     //--------------HomeMenu---------------//
     JMenu homeMenuPanel = new JMenu("Home");
     JPanel pnlCarsInfo,pnlRest,pnlBookCars;
+    JTable table_1;
     JTextField tf_car_model,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
     //--carInfo--//
+    public void refresh(){
+        dispose();
+        new Main();
+    }
+    public void addTable(){
+        try {
+            table_1=new JTable();
+            pst = con.prepareStatement("select * from carlist");
+            ResultSet rs = pst.executeQuery();
+            table_1.setModel(DbUtils.resultSetToTableModel(rs));
+            table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            JScrollPane sp=new JScrollPane(table_1);
+            pnlCarsInfo.add(sp);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     public void makeTextFieldsEmpty(){
         tf_car_no.setText("");
         tf_company.setText("");
@@ -56,8 +81,6 @@ public class Main extends JFrame {
                 insurance_exp_date=tf_insurance_exp_date.getText();
                 car_identification_no=tf_car_identification_no.getText();
                 car_model=tf_car_model.getText();
-
-
                 try {
                     pst = con.prepareStatement("update carlist set carModel = ?,carCompany = ?,carMileage = ?,carCapacity=?,isBooked=?,iCompany=?,effectiveDate=?,iExpirayDate=?,carIndentificationNumber=?,fuelCapacity=?,fuelType=? where carNo = ?");
                     pst.setString(1,car_model);
@@ -72,17 +95,15 @@ public class Main extends JFrame {
                     pst.setString(10,fuelCapacity);
                     pst.setString(11,fuelType);
                     pst.setString(12,car_no);
-
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Record Updateee!!!!!");
+                    refresh();
                     makeTextFieldsEmpty();
                 }
                 catch (SQLException e1)
                 {
                     e1.printStackTrace();
                 }
-                addTable();
-
             }
         });
         //
@@ -95,8 +116,8 @@ public class Main extends JFrame {
                     pst = con.prepareStatement("delete from carlist  where carNo = ?");
                     pst.setString(1, carNo);
                     pst.executeUpdate();
-                    addTable();
                     JOptionPane.showMessageDialog(null, "Record Deleteeeeee!!!!!");
+                    refresh();
                 }
                 catch (SQLException e1) {
                     e1.printStackTrace();
@@ -189,6 +210,7 @@ public class Main extends JFrame {
                     pst.setString(12,car_model);
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null,"New Car Added");
+                    refresh();
                     makeTextFieldsEmpty();
                 }catch(Exception e2){
                     System.out.println(e2);
@@ -198,6 +220,25 @@ public class Main extends JFrame {
         //
         String isHired[]={"available","Unavailable"};
         JComboBox cb=new JComboBox(isHired);
+
+
+        cb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JTable table_1=new JTable();
+                    pst = con.prepareStatement("select * from carlist where isBooked=true");
+                    ResultSet rs = pst.executeQuery();
+                    table_1.revalidate();
+                    table_1.setModel(DbUtils.resultSetToTableModel(rs));
+                    table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    JScrollPane sp=new JScrollPane(table_1);
+                    pnlCarsInfo.add(sp);
+                }catch(SQLException e2){
+                    e2.printStackTrace();
+                }
+            }
+        });
         //
         thirteen.setLayout(new FlowLayout(FlowLayout.CENTER));
         thirteen.add(update);
@@ -309,19 +350,6 @@ public class Main extends JFrame {
         pnlRest.setBackground(Color.GRAY);
         pnlCarsInfo.add(pnlRest);
     }
-    public void addTable(){
-        try {
-            JTable table_1=new JTable();
-            pst = con.prepareStatement("select * from carlist");
-            ResultSet rs = pst.executeQuery();
-            table_1.setModel(DbUtils.resultSetToTableModel(rs));
-            table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            JScrollPane sp=new JScrollPane(table_1);
-            pnlCarsInfo.add(sp);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
     public void addCarsInfo() {
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
         homeMenuPanel.add(mniCarsInfo);
@@ -342,16 +370,12 @@ public class Main extends JFrame {
         pnlCarsInfo.setLayout(new GridLayout(2,1));
     }
     //--bookCars--//
-    public void addBookCarsButton(){}
-    public void addBookCarsForm(){}
     public void addBookCars() {
         JMenuItem mniBookCars = new JMenuItem("Book Cars");
         pnlBookCars = new JPanel();
         pnlBookCars.setBackground(Color.black);
         homeMenuPanel.add(mniBookCars);
         panel.add(pnlBookCars, "pnlBookCars");
-        addBookCarsForm();
-        addBookCarsButton();
         mniBookCars.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
