@@ -32,19 +32,6 @@ public class Main extends JFrame {
         dispose();
         new Main();
     }
-    public void addTable(){
-        try {
-            table_1=new JTable();
-            pst = con.prepareStatement("select * from carlist");
-            ResultSet rs = pst.executeQuery();
-            table_1.setModel(DbUtils.resultSetToTableModel(rs));
-            table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            JScrollPane sp=new JScrollPane(table_1);
-            pnlCarsInfo.add(sp);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
     public void makeTextFieldsEmpty(){
         tf_car_no.setText("");
         tf_company.setText("");
@@ -58,6 +45,19 @@ public class Main extends JFrame {
         tf_insurance_exp_date.setText("");
         tf_car_identification_no.setText("");
         tf_car_model.setText("");
+    }
+    public void addTable(){
+        try {
+            table_1=new JTable();
+            pst = con.prepareStatement("select * from carlist");
+            ResultSet rs = pst.executeQuery();
+            table_1.setModel(DbUtils.resultSetToTableModel(rs));
+            table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            JScrollPane sp=new JScrollPane(table_1);
+            pnlCarsInfo.add(sp);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
     public void addCarsInfoRestButtons(){
         JButton update,save,delete,search;
@@ -370,10 +370,21 @@ public class Main extends JFrame {
         pnlCarsInfo.setLayout(new GridLayout(2,1));
     }
     //--bookCars--//
+    public void addBookingCarInfo(){
+        JPanel pnlRestBookCars=new JPanel();
+        JLabel l=new JLabel("Above");
+        pnlRestBookCars.add(l);
+        pnlBookCars.add(pnlRestBookCars);
+    }
+    public void addUserInfoForm(){
+        JPanel pnlRestBookCars=new JPanel();
+        JLabel l=new JLabel("Below");
+        pnlRestBookCars.add(l);
+        pnlBookCars.add(pnlRestBookCars);
+    }
     public void addBookCars() {
         JMenuItem mniBookCars = new JMenuItem("Book Cars");
         pnlBookCars = new JPanel();
-        pnlBookCars.setBackground(Color.black);
         homeMenuPanel.add(mniBookCars);
         panel.add(pnlBookCars, "pnlBookCars");
         mniBookCars.addActionListener(new ActionListener() {
@@ -382,6 +393,11 @@ public class Main extends JFrame {
                 cardLayout.show(panel, "pnlBookCars");
             }
         });
+        //
+        addBookingCarInfo();
+        addUserInfoForm();
+        //
+        pnlBookCars.setLayout(new GridLayout(2,1));
     }
     //
     public void addHome() {
@@ -413,19 +429,18 @@ public class Main extends JFrame {
             }
         });
     }
-    //
+    //------------------ constructor call --------------------//
     Main() {
         con = DB.dbconnect();
         panel.setLayout(cardLayout);
         cardLayout.show(panel, "pnlCarsInfo");
         setJMenuBar(menuBar);
         add(panel);
-        //
+        //--------------------------------------------//
         addHome();
         addMoreMenu();
-        //
+        //--------------------------------------------//
         setMinimumSize(new Dimension(800, 600));
-//        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
