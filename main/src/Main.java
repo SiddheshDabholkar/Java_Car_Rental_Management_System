@@ -367,22 +367,75 @@ public class Main extends JFrame {
         pnlCarsInfo.setLayout(new GridLayout(2,1));
     }
     //--bookCars--//
+    JLabel id,name,surname,drivingLicenceNo,carNo,phoneNo,totalPaidMoney,hiredAt,returningDate,noOfDays;
+    JTextField t_id,t_name,t_surname,t_drivingLicenceNo,t_carNo,t_phoneNo,t_totalPaidMoney,t_hiredAt,t_returningDate,t_noOfDays;
+    JLabel carCompany,carMileage,carCapacity,fuelCapacity,fuelType,carModel;
+    JTextField t_carCompany,t_carMileage,t_carCapacity,t_fuelCapacity,t_fuelType,t_carModel;
+
     public void addBookingCarInfo(){
         JPanel pnlRestBookCarInfo=new JPanel();
+        JPanel one,two,three,four,five,six;
 
-        JLabel l=new JLabel("Above");
-        pnlRestBookCarInfo.add(l);
+        one=new JPanel();
+        carCompany=new JLabel("car company");
+        t_carCompany=new JTextField(15);
+        t_carCompany.setEditable(false);
+        one.add(carCompany);
+        one.add(t_carCompany);
+
+        two=new JPanel();
+        carMileage=new JLabel("car mileage");
+        t_carMileage=new JTextField(15);
+        t_carMileage.setEditable(false);
+        two.add(carMileage);
+        two.add(t_carMileage);
+
+        three=new JPanel();
+        carCapacity=new JLabel("car capacity");
+        t_carCapacity=new JTextField(15);
+        t_carCapacity.setEditable(false);
+        three.add(carCapacity);
+        three.add(t_carCapacity);
+
+        four=new JPanel();
+        fuelCapacity=new JLabel("fuel capacity");
+        t_fuelCapacity=new JTextField(15);
+        t_fuelCapacity.setEditable(false);
+        four.add(fuelCapacity);
+        four.add(t_fuelCapacity);
+
+        five=new JPanel();
+        fuelType=new JLabel("fuel type");
+        t_fuelType=new JTextField(15);
+        t_fuelType.setEditable(false);
+        five.add(fuelType);
+        five.add(t_fuelType);
+
+        six=new JPanel();
+        carModel=new JLabel("car model");
+        t_carModel=new JTextField(15);
+        t_carModel.setEditable(false);
+        six.add(carModel);
+        six.add(t_carModel);
+
+        pnlRestBookCarInfo.setLayout(new GridLayout(3,2));
+        pnlRestBookCarInfo.add(one);
+        pnlRestBookCarInfo.add(two);
+        pnlRestBookCarInfo.add(three);
+        pnlRestBookCarInfo.add(four);
+        pnlRestBookCarInfo.add(five);
+        pnlRestBookCarInfo.add(six);
+
         pnlBookCars.add(pnlRestBookCarInfo);
     }
     public void addUserInfoForm(){
         JPanel pnlRestBookCars=new JPanel();
         JPanel one,two,three,four,five,six,seven,eight,nine,ten;
-        JLabel id,name,surname,drivingLicenceNo,carNo,phoneNo,totalPaidMoney,hiredAt,returningDate,noOfDays;
-        JTextField t_id,t_name,t_surname,t_drivingLicenceNo,t_carNo,t_phoneNo,t_totalPaidMoney,t_hiredAt,t_returningDate,t_noOfDays;
 
         one=new JPanel();
         id=new JLabel("id");
         t_id=new JTextField(15);
+        t_id.setEditable(false);
         one.add(id);
         one.add(t_id);
 
@@ -407,6 +460,7 @@ public class Main extends JFrame {
         five=new JPanel();
         carNo=new JLabel("car no");
         t_carNo=new JTextField(15);
+        t_carNo.setEditable(false);
         five.add(carNo);
         five.add(t_carNo);
 
