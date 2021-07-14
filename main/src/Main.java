@@ -220,8 +220,6 @@ public class Main extends JFrame {
         //
         String isHired[]={"available","Unavailable"};
         JComboBox cb=new JComboBox(isHired);
-
-
         cb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -249,7 +247,6 @@ public class Main extends JFrame {
         pnlRest.add(thirteen);
     }
     public void addCarsInfoRestForm(){
-
         pnlRest = new JPanel();
         JPanel formContainer=new JPanel();
         JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve;
@@ -371,15 +368,90 @@ public class Main extends JFrame {
     }
     //--bookCars--//
     public void addBookingCarInfo(){
-        JPanel pnlRestBookCars=new JPanel();
+        JPanel pnlRestBookCarInfo=new JPanel();
+
         JLabel l=new JLabel("Above");
-        pnlRestBookCars.add(l);
-        pnlBookCars.add(pnlRestBookCars);
+        pnlRestBookCarInfo.add(l);
+        pnlBookCars.add(pnlRestBookCarInfo);
     }
     public void addUserInfoForm(){
         JPanel pnlRestBookCars=new JPanel();
-        JLabel l=new JLabel("Below");
-        pnlRestBookCars.add(l);
+        JPanel one,two,three,four,five,six,seven,eight,nine,ten;
+        JLabel id,name,surname,drivingLicenceNo,carNo,phoneNo,totalPaidMoney,hiredAt,returningDate,noOfDays;
+        JTextField t_id,t_name,t_surname,t_drivingLicenceNo,t_carNo,t_phoneNo,t_totalPaidMoney,t_hiredAt,t_returningDate,t_noOfDays;
+
+        one=new JPanel();
+        id=new JLabel("id");
+        t_id=new JTextField(15);
+        one.add(id);
+        one.add(t_id);
+
+        two=new JPanel();
+        name=new JLabel("name");
+        t_name=new JTextField(15);
+        two.add(name);
+        two.add(t_name);
+
+        three=new JPanel();
+        surname=new JLabel("surname");
+        t_surname=new JTextField(15);
+        three.add(surname);
+        three.add(t_surname);
+
+        four=new JPanel();
+        drivingLicenceNo=new JLabel("driving licence no");
+        t_drivingLicenceNo=new JTextField(15);
+        four.add(drivingLicenceNo);
+        four.add(t_drivingLicenceNo);
+
+        five=new JPanel();
+        carNo=new JLabel("car no");
+        t_carNo=new JTextField(15);
+        five.add(carNo);
+        five.add(t_carNo);
+
+        six=new JPanel();
+        phoneNo=new JLabel("phone no");
+        t_phoneNo=new JTextField(15);
+        six.add(phoneNo);
+        six.add(t_phoneNo);
+
+        seven=new JPanel();
+        totalPaidMoney=new JLabel("total paid money");
+        t_totalPaidMoney=new JTextField(15);
+        seven.add(totalPaidMoney);
+        seven.add(t_totalPaidMoney);
+
+        eight=new JPanel();
+        hiredAt=new JLabel("hired at");
+        t_hiredAt=new JTextField(15);
+        eight.add(hiredAt);
+        eight.add(t_hiredAt);
+
+        nine=new JPanel();
+        returningDate=new JLabel("returning date");
+        t_returningDate=new JTextField(15);
+        nine.add(returningDate);
+        nine.add(t_returningDate);
+
+        ten=new JPanel();
+        noOfDays=new JLabel("duration");
+        t_noOfDays=new JTextField(15);
+        ten.add(noOfDays);
+        ten.add(t_noOfDays);
+
+        pnlRestBookCars.setLayout(new GridLayout(5,2));
+        pnlRestBookCars.add(one);
+        pnlRestBookCars.add(two);
+        pnlRestBookCars.add(three);
+        pnlRestBookCars.add(four);
+        pnlRestBookCars.add(five);
+        pnlRestBookCars.add(six);
+        pnlRestBookCars.add(seven);
+        pnlRestBookCars.add(eight);
+        pnlRestBookCars.add(nine);
+        pnlRestBookCars.add(ten);
+
         pnlBookCars.add(pnlRestBookCars);
     }
     public void addBookCars() {
