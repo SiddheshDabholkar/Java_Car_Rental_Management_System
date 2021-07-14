@@ -371,66 +371,29 @@ public class Main extends JFrame {
     JTextField t_id,t_name,t_surname,t_drivingLicenceNo,t_carNo,t_phoneNo,t_totalPaidMoney,t_hiredAt,t_returningDate,t_noOfDays;
     JLabel carCompany,carMileage,carCapacity,fuelCapacity,fuelType,carModel;
     JTextField t_carCompany,t_carMileage,t_carCapacity,t_fuelCapacity,t_fuelType,t_carModel;
-
-    public void addBookingCarInfo(){
-        JPanel pnlRestBookCarInfo=new JPanel();
-        JPanel one,two,three,four,five,six;
-
-        one=new JPanel();
-        carCompany=new JLabel("car company");
-        t_carCompany=new JTextField(15);
-        t_carCompany.setEditable(false);
-        one.add(carCompany);
-        one.add(t_carCompany);
-
-        two=new JPanel();
-        carMileage=new JLabel("car mileage");
-        t_carMileage=new JTextField(15);
-        t_carMileage.setEditable(false);
-        two.add(carMileage);
-        two.add(t_carMileage);
-
-        three=new JPanel();
-        carCapacity=new JLabel("car capacity");
-        t_carCapacity=new JTextField(15);
-        t_carCapacity.setEditable(false);
-        three.add(carCapacity);
-        three.add(t_carCapacity);
-
-        four=new JPanel();
-        fuelCapacity=new JLabel("fuel capacity");
-        t_fuelCapacity=new JTextField(15);
-        t_fuelCapacity.setEditable(false);
-        four.add(fuelCapacity);
-        four.add(t_fuelCapacity);
-
-        five=new JPanel();
-        fuelType=new JLabel("fuel type");
-        t_fuelType=new JTextField(15);
-        t_fuelType.setEditable(false);
-        five.add(fuelType);
-        five.add(t_fuelType);
-
-        six=new JPanel();
-        carModel=new JLabel("car model");
-        t_carModel=new JTextField(15);
-        t_carModel.setEditable(false);
-        six.add(carModel);
-        six.add(t_carModel);
-
-        pnlRestBookCarInfo.setLayout(new GridLayout(3,2));
-        pnlRestBookCarInfo.add(one);
-        pnlRestBookCarInfo.add(two);
-        pnlRestBookCarInfo.add(three);
-        pnlRestBookCarInfo.add(four);
-        pnlRestBookCarInfo.add(five);
-        pnlRestBookCarInfo.add(six);
-
-        pnlBookCars.add(pnlRestBookCarInfo);
+    public void addCarSelector(){
+        JPanel pnlCarSelector=new JPanel();
+        JLabel selctCarLable=new JLabel("Selct car model :");
+        try{
+            JComboBox selectCar=new JComboBox();
+            pst = con.prepareStatement("select carModel from carlist");
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                selectCar.addItem(rs.getString(1));
+            }
+            pnlCarSelector.add(selctCarLable);
+            pnlCarSelector.add(selectCar);
+        }catch(SQLException e3){
+            e3.printStackTrace();
+        }
+//        pnlCarSelector.setLayout(new GridLayout(1,1));
+        getContentPane().setLayout(new GridLayout(1,1));
+        pnlBookCars.add(pnlCarSelector);
     }
     public void addUserInfoForm(){
+
         JPanel pnlRestBookCars=new JPanel();
-        JPanel one,two,three,four,five,six,seven,eight,nine,ten;
+        JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen;
 
         one=new JPanel();
         id=new JLabel("id");
@@ -494,12 +457,60 @@ public class Main extends JFrame {
         ten.add(noOfDays);
         ten.add(t_noOfDays);
 
-        pnlRestBookCars.setLayout(new GridLayout(5,2));
+        eleven=new JPanel();
+        carCompany=new JLabel("car company");
+        t_carCompany=new JTextField(15);
+        t_carCompany.setEditable(false);
+        eleven.add(carCompany);
+        eleven.add(t_carCompany);
+
+        twelve=new JPanel();
+        carMileage=new JLabel("car mileage");
+        t_carMileage=new JTextField(15);
+        t_carMileage.setEditable(false);
+        twelve.add(carMileage);
+        twelve.add(t_carMileage);
+
+        thirteen=new JPanel();
+        carCapacity=new JLabel("car capacity");
+        t_carCapacity=new JTextField(15);
+        t_carCapacity.setEditable(false);
+        thirteen.add(carCapacity);
+        thirteen.add(t_carCapacity);
+
+        fourteen=new JPanel();
+        fuelCapacity=new JLabel("fuel capacity");
+        t_fuelCapacity=new JTextField(15);
+        t_fuelCapacity.setEditable(false);
+        fourteen.add(fuelCapacity);
+        fourteen.add(t_fuelCapacity);
+
+        fifteen=new JPanel();
+        fuelType=new JLabel("fuel type");
+        t_fuelType=new JTextField(15);
+        t_fuelType.setEditable(false);
+        fifteen.add(fuelType);
+        fifteen.add(t_fuelType);
+
+        sixteen=new JPanel();
+        carModel=new JLabel("car model");
+        t_carModel=new JTextField(15);
+        t_carModel.setEditable(false);
+        sixteen.add(carModel);
+        sixteen.add(t_carModel);
+
+        pnlRestBookCars.setLayout(new GridLayout(8,2));
+        pnlRestBookCars.add(eleven);
+        pnlRestBookCars.add(twelve);
+        pnlRestBookCars.add(thirteen);
+        pnlRestBookCars.add(fourteen);
+        pnlRestBookCars.add(fifteen);
+        pnlRestBookCars.add(sixteen);
         pnlRestBookCars.add(one);
-        pnlRestBookCars.add(two);
+        pnlRestBookCars.add(five);
         pnlRestBookCars.add(three);
         pnlRestBookCars.add(four);
-        pnlRestBookCars.add(five);
+        pnlRestBookCars.add(two);
         pnlRestBookCars.add(six);
         pnlRestBookCars.add(seven);
         pnlRestBookCars.add(eight);
@@ -520,10 +531,11 @@ public class Main extends JFrame {
             }
         });
         //
-        addBookingCarInfo();
+        addCarSelector();
         addUserInfoForm();
         //
-        pnlBookCars.setLayout(new GridLayout(2,1));
+//        pnlBookCars.setLayout(new GridLayout(2,1));
+        pnlBookCars.setLayout(new BoxLayout(pnlBookCars,BoxLayout.Y_AXIS));
     }
     //
     public void addHome() {
