@@ -373,20 +373,45 @@ public class Main extends JFrame {
     JTextField t_carCompany,t_carMileage,t_carCapacity,t_fuelCapacity,t_fuelType,t_carModel;
     public void addCarSelector(){
         JPanel pnlCarSelector=new JPanel();
-        JLabel selctCarLable=new JLabel("Selct car model :");
+        JLabel selctCarLable=new JLabel("Select car model :");
+        JComboBox selectCar=new JComboBox();
         try{
-            JComboBox selectCar=new JComboBox();
             pst = con.prepareStatement("select carModel from carlist");
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                 selectCar.addItem(rs.getString(1));
             }
-            pnlCarSelector.add(selctCarLable);
-            pnlCarSelector.add(selectCar);
         }catch(SQLException e3){
             e3.printStackTrace();
         }
-//        pnlCarSelector.setLayout(new GridLayout(1,1));
+        selectCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedCar=(String)selectCar.getSelectedItem();
+                JLabel showText=new JLabel("slected car model is "+selectedCar);
+                pnlCarSelector.add(showText);
+                try {
+                    pst=con.prepareStatement("select carNo,carCompany,carMileage,carCapacity,fuelCapacity,fuelType from carlist where carModel=?");
+                    pst.setString(1, selectedCar);
+                    ResultSet rs = pst.executeQuery();
+                    if(rs.next())
+                    {
+                        t_carModel.setText(selectedCar);
+                        t_carNo.setText(rs.getString(1));
+                        t_carCompany.setText(rs.getString(2));
+                        t_carMileage.setText(rs.getString(3));
+                        t_carCapacity.setText(rs.getString(4));
+                        t_fuelCapacity.setText(rs.getString(5));
+                        t_fuelType.setText(rs.getString(6));
+                    }
+                }catch(SQLException e3){
+                    System.out.println("error while fetching selected car model ");
+                    e3.printStackTrace();
+                }
+            }
+        });
+        pnlCarSelector.add(selctCarLable);
+        pnlCarSelector.add(selectCar);
         getContentPane().setLayout(new GridLayout(1,1));
         pnlBookCars.add(pnlCarSelector);
     }
