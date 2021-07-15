@@ -8,13 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//NOTE
-// After updating ,deleting and adding car
-// The JTable doesn't reloads .
-// so we call the refresh method after
-// every deleting,adding and updating car
-// which is not an optimal solution.
-
 public class Main extends JFrame {
     Connection con = null;
     PreparedStatement pst;
@@ -24,7 +17,7 @@ public class Main extends JFrame {
     //_______________________Menus_________________________//
     //--------------HomeMenu---------------//
     JMenu homeMenuPanel = new JMenu("Home");
-    JPanel pnlCarsInfo,pnlRest,pnlBookCars;
+    JPanel pnlCarsInfo,pnlRest,pnlBookCars,pnlCustomerHistory;
     JTable table_1;
     JTextField tf_car_model,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
     //--carInfo--//
@@ -330,7 +323,7 @@ public class Main extends JFrame {
     public void addCarsInfo() {
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
         homeMenuPanel.add(mniCarsInfo);
-        pnlCarsInfo = new JPanel();
+        JPanel pnlCarsInfo = new JPanel();
         panel.add(pnlCarsInfo, "pnlCarsInfo");
         //
         mniCarsInfo.addActionListener(new ActionListener() {
@@ -353,7 +346,9 @@ public class Main extends JFrame {
     JTextField t_carCompany,t_carMileage,t_carCapacity,t_fuelCapacity,t_fuelType,t_carModel;
     public void addCarSelector(){
         JPanel pnlCarSelector=new JPanel();
+        pnlCarSelector.setBackground(Color.black);
         JLabel selctCarLable=new JLabel("Select car model :");
+        selctCarLable.setForeground(Color.WHITE);
         JComboBox selectCar=new JComboBox();
         try{
             pst = con.prepareStatement("select carModel from carlist");
@@ -401,104 +396,136 @@ public class Main extends JFrame {
         JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen;
 
         one=new JPanel();
+        one.setBackground(Color.black);
         id=new JLabel("id");
+        id.setForeground(Color.WHITE);
         t_id=new JTextField(15);
         t_id.setEditable(false);
         one.add(id);
         one.add(t_id);
 
         two=new JPanel();
+        two.setBackground(Color.black);
         name=new JLabel("name");
+        name.setForeground(Color.WHITE);
         t_name=new JTextField(15);
         two.add(name);
         two.add(t_name);
 
         three=new JPanel();
+        three.setBackground(Color.black);
         surname=new JLabel("surname");
+        surname.setForeground(Color.WHITE);
         t_surname=new JTextField(15);
         three.add(surname);
         three.add(t_surname);
 
         four=new JPanel();
+        four.setBackground(Color.black);
         drivingLicenceNo=new JLabel("driving licence no");
+        drivingLicenceNo.setForeground(Color.WHITE);
         t_drivingLicenceNo=new JTextField(15);
         four.add(drivingLicenceNo);
         four.add(t_drivingLicenceNo);
 
         five=new JPanel();
+        five.setBackground(Color.black);
         carNo=new JLabel("car no");
+        carNo.setForeground(Color.WHITE);
         t_carNo=new JTextField(15);
         t_carNo.setEditable(false);
         five.add(carNo);
         five.add(t_carNo);
 
         six=new JPanel();
+        six.setBackground(Color.black);
         phoneNo=new JLabel("phone no");
+        phoneNo.setForeground(Color.WHITE);
         t_phoneNo=new JTextField(15);
         six.add(phoneNo);
         six.add(t_phoneNo);
 
         seven=new JPanel();
+        seven.setBackground(Color.black);
         totalPaidMoney=new JLabel("total paid money");
+        totalPaidMoney.setForeground(Color.WHITE);
         t_totalPaidMoney=new JTextField(15);
         seven.add(totalPaidMoney);
         seven.add(t_totalPaidMoney);
 
         eight=new JPanel();
+        eight.setBackground(Color.black);
         hiredAt=new JLabel("hired at");
+        hiredAt.setForeground(Color.WHITE);
         t_hiredAt=new JTextField(15);
         eight.add(hiredAt);
         eight.add(t_hiredAt);
 
         nine=new JPanel();
+        nine.setBackground(Color.black);
         returningDate=new JLabel("returning date");
+        returningDate.setForeground(Color.WHITE);
         t_returningDate=new JTextField(15);
         nine.add(returningDate);
         nine.add(t_returningDate);
 
         ten=new JPanel();
+        ten.setBackground(Color.black);
         noOfDays=new JLabel("duration");
+        noOfDays.setForeground(Color.WHITE);
         t_noOfDays=new JTextField(15);
         ten.add(noOfDays);
         ten.add(t_noOfDays);
 
         eleven=new JPanel();
+        eleven.setBackground(Color.black);
         carCompany=new JLabel("car company");
+        carCompany.setForeground(Color.WHITE);
         t_carCompany=new JTextField(15);
         t_carCompany.setEditable(false);
         eleven.add(carCompany);
         eleven.add(t_carCompany);
 
         twelve=new JPanel();
+        twelve.setBackground(Color.black);
         carMileage=new JLabel("car mileage");
+        carMileage.setForeground(Color.WHITE);
         t_carMileage=new JTextField(15);
         t_carMileage.setEditable(false);
         twelve.add(carMileage);
         twelve.add(t_carMileage);
 
         thirteen=new JPanel();
+        thirteen.setBackground(Color.black);
         carCapacity=new JLabel("car capacity");
+        carCapacity.setForeground(Color.WHITE);
         t_carCapacity=new JTextField(15);
         t_carCapacity.setEditable(false);
         thirteen.add(carCapacity);
         thirteen.add(t_carCapacity);
 
         fourteen=new JPanel();
+        fourteen.setBackground(Color.black);
         fuelCapacity=new JLabel("fuel capacity");
+        fuelCapacity.setForeground(Color.WHITE);
         t_fuelCapacity=new JTextField(15);
         t_fuelCapacity.setEditable(false);
         fourteen.add(fuelCapacity);
         fourteen.add(t_fuelCapacity);
 
         fifteen=new JPanel();
+        fifteen.setBackground(Color.black);
         fuelType=new JLabel("fuel type");
+        fuelType.setForeground(Color.WHITE);
         t_fuelType=new JTextField(15);
         t_fuelType.setEditable(false);
         fifteen.add(fuelType);
         fifteen.add(t_fuelType);
 
         sixteen=new JPanel();
+        sixteen.setBackground(Color.black);
         carModel=new JLabel("car model");
+        carModel.setForeground(Color.WHITE);
         t_carModel=new JTextField(15);
         t_carModel.setEditable(false);
         sixteen.add(carModel);
@@ -526,6 +553,7 @@ public class Main extends JFrame {
     }
     public void addOtherButtons(){
         JPanel buttonContainer=new JPanel();
+        buttonContainer.setBackground(Color.black);
         JButton hire=new JButton("hire this car");
         hire.addActionListener(new ActionListener() {
             @Override
@@ -576,10 +604,39 @@ public class Main extends JFrame {
         //
         pnlBookCars.setLayout(new BoxLayout(pnlBookCars,BoxLayout.Y_AXIS));
     }
+    //------customer History--------//
+    public void addCustomerDetailsTable(){
+        try {
+            table_1=new JTable();
+            pst = con.prepareStatement("select * from customer");
+            ResultSet rs = pst.executeQuery();
+            table_1.setModel(DbUtils.resultSetToTableModel(rs));
+            table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            JScrollPane sp=new JScrollPane(table_1);
+            pnlCarsInfo.add(sp);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public void addCustomerHistory(){
+        JMenuItem mniCustomerHistory = new JMenuItem("Customer History");
+        pnlCustomerHistory=new JPanel();
+        homeMenuPanel.add(mniCustomerHistory);
+        panel.add(pnlCustomerHistory,"customerHistory");
+        mniCustomerHistory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panel, "customerHistory");
+            }
+        });
+        addCustomerDetailsTable();
+        pnlCustomerHistory.setLayout(new BoxLayout(pnlCustomerHistory,BoxLayout.Y_AXIS));
+    }
     //
     public void addHome() {
         addCarsInfo();
         addBookCars();
+//        addCustomerHistory();
         menuBar.add(homeMenuPanel);
     }
     //--------------MoreMenu---------------//
