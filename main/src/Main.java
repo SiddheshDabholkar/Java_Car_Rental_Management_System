@@ -18,7 +18,7 @@ public class Main extends JFrame {
     //--------------HomeMenu---------------//
     JMenu homeMenuPanel = new JMenu("Home");
     JPanel pnlCarsInfo,pnlRest,pnlBookCars,pnlCustomerHistory;
-    JTable table_1;
+    JTable table_1,table_2;
     JTextField tf_car_model,tf_car_no,tf_company,tf_mileage,tf_capacity,tf_fuelType,tf_fuelCapacity,tf_availability,tf_insurance_company,tf_effective_date,tf_insurance_exp_date,tf_car_identification_no;
     //--carInfo--//
     public void refresh(){
@@ -219,7 +219,7 @@ public class Main extends JFrame {
         thirteen.add(search);
         pnlRest.add(thirteen);
     }
-    public void addCarsInfoRestForm(){
+    public void addCarsInfoRest(){
         pnlRest = new JPanel();
         JPanel formContainer=new JPanel();
         JPanel one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve;
@@ -313,17 +313,14 @@ public class Main extends JFrame {
         formContainer.add(twelve);
 
         pnlRest.add(formContainer);
-    }
-    public void addCarsInfoRest(){
-        addCarsInfoRestForm();
         pnlRest.setLayout(new BoxLayout(pnlRest,BoxLayout.Y_AXIS));
         pnlRest.setBackground(Color.GRAY);
         pnlCarsInfo.add(pnlRest);
     }
-    public void addCarsInfo() {
+    public void addCarsInfo(){
         JMenuItem mniCarsInfo = new JMenuItem("Cars Info");
         homeMenuPanel.add(mniCarsInfo);
-        JPanel pnlCarsInfo = new JPanel();
+        pnlCarsInfo = new JPanel();
         panel.add(pnlCarsInfo, "pnlCarsInfo");
         //
         mniCarsInfo.addActionListener(new ActionListener() {
@@ -604,39 +601,41 @@ public class Main extends JFrame {
         //
         pnlBookCars.setLayout(new BoxLayout(pnlBookCars,BoxLayout.Y_AXIS));
     }
-    //------customer History--------//
-    public void addCustomerDetailsTable(){
+    //----- customerHistory -----//
+    public void addCustomerInfoTable(){
         try {
-            table_1=new JTable();
+            table_2=new JTable();
             pst = con.prepareStatement("select * from customer");
             ResultSet rs = pst.executeQuery();
-            table_1.setModel(DbUtils.resultSetToTableModel(rs));
-            table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            JScrollPane sp=new JScrollPane(table_1);
-            pnlCarsInfo.add(sp);
+            table_2.setModel(DbUtils.resultSetToTableModel(rs));
+            table_2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            JScrollPane sp=new JScrollPane(table_2);
+            pnlCustomerHistory.add(sp);
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
     public void addCustomerHistory(){
-        JMenuItem mniCustomerHistory = new JMenuItem("Customer History");
-        pnlCustomerHistory=new JPanel();
-        homeMenuPanel.add(mniCustomerHistory);
-        panel.add(pnlCustomerHistory,"customerHistory");
-        mniCustomerHistory.addActionListener(new ActionListener() {
+        JMenuItem customerHistory = new JMenuItem("Customer History");
+        pnlCustomerHistory = new JPanel();
+        homeMenuPanel.add(customerHistory);
+        panel.add(pnlCustomerHistory, "pnlCustomerHistory");
+        customerHistory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(panel, "customerHistory");
+                cardLayout.show(panel, "pnlCustomerHistory");
             }
         });
-        addCustomerDetailsTable();
-        pnlCustomerHistory.setLayout(new BoxLayout(pnlCustomerHistory,BoxLayout.Y_AXIS));
+        //
+        addCustomerInfoTable();
+        //
+        pnlCustomerHistory.setLayout(new GridLayout(2,1));
     }
     //
     public void addHome() {
         addCarsInfo();
         addBookCars();
-//        addCustomerHistory();
+        addCustomerHistory();
         menuBar.add(homeMenuPanel);
     }
     //--------------MoreMenu---------------//
