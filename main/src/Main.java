@@ -218,32 +218,12 @@ public class Main extends JFrame {
             }
         });
         //
-        String isHired[]={"available","Unavailable"};
-        JComboBox cb=new JComboBox(isHired);
-        cb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    JTable table_1=new JTable();
-                    pst = con.prepareStatement("select * from carlist where isBooked=true");
-                    ResultSet rs = pst.executeQuery();
-                    table_1.revalidate();
-                    table_1.setModel(DbUtils.resultSetToTableModel(rs));
-                    table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                    JScrollPane sp=new JScrollPane(table_1);
-                    pnlCarsInfo.add(sp);
-                }catch(SQLException e2){
-                    e2.printStackTrace();
-                }
-            }
-        });
         //
         thirteen.setLayout(new FlowLayout(FlowLayout.CENTER));
         thirteen.add(update);
         thirteen.add(save);
         thirteen.add(delete);
         thirteen.add(search);
-        thirteen.add(cb);
         pnlRest.add(thirteen);
     }
     public void addCarsInfoRestForm(){
@@ -544,6 +524,40 @@ public class Main extends JFrame {
 
         pnlBookCars.add(pnlRestBookCars);
     }
+    public void addOtherButtons(){
+        JPanel buttonContainer=new JPanel();
+        JButton hire=new JButton("hire this car");
+        hire.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cno =t_carNo.getText();
+                try {
+                    pst = con.prepareStatement("update carlist set isBooked=1 where carNo = ?");
+                    pst.setString(1,cno);
+                    pst.executeUpdate();
+
+                    pst=con.prepareStatement("insert into customer(uname,surname,drivingLicenceNo,phoneNo,totalPaidMoney,hiredAt,returningDate,noOfDays,carNo)values(?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1,t_name.getText());
+                    pst.setString(2,t_surname.getText());
+                    pst.setString(3,t_drivingLicenceNo.getText());
+                    pst.setString(4,t_phoneNo.getText());
+                    pst.setString(5,t_totalPaidMoney.getText());
+                    pst.setString(6,t_hiredAt.getText());
+                    pst.setString(7,t_returningDate.getText());
+                    pst.setString(8,t_noOfDays.getText());
+                    pst.setString(9,cno);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "car hired");
+                    refresh();
+                }
+                catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        buttonContainer.add(hire);
+        pnlBookCars.add(buttonContainer);
+    }
     public void addBookCars() {
         JMenuItem mniBookCars = new JMenuItem("Book Cars");
         pnlBookCars = new JPanel();
@@ -558,8 +572,8 @@ public class Main extends JFrame {
         //
         addCarSelector();
         addUserInfoForm();
+        addOtherButtons();
         //
-//        pnlBookCars.setLayout(new GridLayout(2,1));
         pnlBookCars.setLayout(new BoxLayout(pnlBookCars,BoxLayout.Y_AXIS));
     }
     //
